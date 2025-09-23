@@ -1,16 +1,18 @@
 import React, { useContext } from 'react'
+import { StateContext } from '../DataProvider/DataProvider';
 import './Header.css'
 import { SlLocationPin } from "react-icons/sl";
 import { FaSearch } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BiCart } from 'react-icons/bi';
-import { DataContext } from '../DataProvider/DataProvider';
+
 import LowerHeader from './LowerHeader';
 
 
 const Header = () => {
 
-  const [{basket}] = useContext(DataContext)
+  const {state, dispatch} = useContext(StateContext);
+  const{ basket } = state;
   
 
   return (

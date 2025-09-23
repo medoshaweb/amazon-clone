@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
+import {StateContext} from "../DataProvider/DataProvider.jsx"
 import Rating from '@mui/material/Rating';
 import CurrencyFormat from '../CurrencyFormat/CurrencyFormat.jsx';
 import './Product.css'
 import { Link } from 'react-router-dom';
-import  { DataContext } from '../DataProvider/DataProvider.jsx';
+
 import { Type } from '../../Utility/action.type.js';
 
 
 const ProductCard = ({ product , flex, renderDetail,renderAdd }) => {
-    const [  dispatch ] = useContext(DataContext);
+    const { dispatch } = useContext(StateContext);
     if (!product) return null;
     const { title, image, price, rating, description } = product || {};
 

@@ -1,13 +1,15 @@
 import React, { useContext } from 'react'
+import { StateContext } from '../../components/DataProvider/DataProvider';
 import './Cart.css'
 import LayOut from '../../components/LayOut/LayOut'
-import { DataContext } from '../../components/DataProvider/DataProvider';
+
 import ProductCard from '../../components/Product/ProductCard';
 import CurrencyFormat from '../../components/CurrencyFormat/CurrencyFormat';
 import { Link } from 'react-router-dom';
 
 const Cart = () => {
-    const [{basket}] = useContext(DataContext);
+    const {state} = useContext(StateContext);
+    const { basket } = state;
     const total = basket.reduce((amount,item)=>
         item.price + amount, 0)
     
