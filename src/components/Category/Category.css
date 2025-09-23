@@ -1,0 +1,113 @@
+Wrap the whole category section
+.category-section {
+  margin-top: -100px; /* adjust overlap height */
+   position: relative;
+  margin: 0 auto;
+  width: 100%;
+  z-index: 2; /* make sure it appears above carousel */
+ }   
+
+ .category-section .category__list {
+  display: flex;
+  flex-wrap: wrap; /* allows multiple rows */
+  justify-content: center; /* centers cards horizontally */
+  gap: 90px; /* space between cards */
+  margin: 0 auto; /* center container if needed */
+}
+
+
+/* Container for all cards */
+ /* .category__list {
+  display: flex;
+  justify-content: center;
+   gap: 20px; 
+  flex-wrap: wrap;
+}   */
+
+/* Individual card */
+.category-card {
+  width: 220px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  position: relative; /* important for overlay text */
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+} 
+
+/* Title */
+.category-card__title {
+  font-size: 16px;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #111;
+  z-index: 2;
+}
+
+/* Image */
+.category-card__image {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Shop Now */
+ .category-card__shop-now {
+  margin-top: 10px;
+  font-size: 10px;
+  text-align: left;
+  color: #007185;
+  cursor: pointer;
+}
+.category-card__shop-now:hover {
+  text-decoration: underline;
+} 
+.landing-wrapper {
+  position: relative;
+  overflow: visible; /* allow children to float outside */
+}
+
+/* Carousel */
+.carousel-wrapper {
+  position: relative;
+  z-index: 1;
+  overflow: visible; /* prevent clipping */
+}
+
+/* Fade effect */
+.carousel-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to top, white 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Category overlap */
+.category-section {
+  position: absolute; /* float over carousel */
+  top: 60%;           /* adjust overlap */
+  left: 0;
+  width: 100%;
+  z-index: 10;        /* above carousel/fade */
+}
+
+/* Grid inside category */
+.category__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}

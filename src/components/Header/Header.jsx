@@ -1,61 +1,91 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Header.css'
-import SearchIcon from "@mui/icons-material/Search";
+import { SlLocationPin } from "react-icons/sl";
+import { FaSearch } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { BiCart } from 'react-icons/bi';
+import { DataContext } from '../DataProvider/DataProvider';
+import LowerHeader from './LowerHeader';
+
 
 const Header = () => {
-  return (
-    <section className="header">
-      <div className='logo'>
-        {/*logo*/}
-        <a href="/">
-          <img
-            src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
-            alt="amazon logo"
-          />
-        </a>
-        {/*delivery*/}
-        <span><img src="../../assets/images/location.png" alt="" /></span>
-        <div>
-            <p>Delivered to</p>
-            <span>Ethiopia</span>
-      </div>
-        </div>
-      <div>
-        {/*search*/}
-        <select name="" id=""><option value="">All</option></select>
-        <input type="text" name='' id='' placeholder='search product'/>
-        <span><SearchIcon /></span>
-      </div>
-        {/*right*/}
 
-      <div>
-        <div>
-            <img src="https://www.citypng.com/public/uploads/preview/hd-official-flag-of-united-states-illustration-7339616949735821oufrl8i2m.png" alt="" />
-            <section>
-                <option value="">EN</option>
-            </section>
-      </div>
-      {/*account*/ }
-      <a href="">
-        <div>
-            <p>Hello, Sign in</p>
-            <span>Account & Lists</span>
+  const [{basket}] = useContext(DataContext)
+  
+
+  return (
+    
+    <section className='fixed'>
+      <section className="header">
+        <div className="header__logoContainer">
+          <Link to="/">
+            <img
+              className="header__logo"
+              src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
+              alt="amazon logo"
+            />
+          </Link>
+
+          <span>
+            <img src="../../assets/images/location white.png" alt="" />
+          </span>
+          <div className="header__optionLocation">
+            <span><SlLocationPin /></span>
+            <div>
+            <p className='header__optionText1'>Delivered to</p>
+            <span className='header__optionText'>Ethiopia</span>
+            </div>
+          </div>
         </div>
-      </a>
-        {/*orders*/}
-        <a href="">
-            <p>returns</p>
-            <span>& Orders</span>
-        </a>
-        {/*cart*/}
-        <a href="">
-            <span>0</span>
-            <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="" />
-            <p>Cart</p>
-        </a>
-      </div>
+        <div className="header__search">
+          <select className="header__searchSelect" name="" id="">
+            <option value="">All</option>
+          </select>
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Search..."
+            className="header__searchInput"
+          />
+          <FaSearch className="header__searchIcon" />
+        </div>
+        <div className="header__nav">
+          <div className="header__optionLanguage">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg"
+              className="flag"
+              alt=""
+            />
+            <select className="header__optionLanguageSelect" name="" id="">
+              <option value="">EN</option>
+            </select>
+          </div>
+          <Link to="/login">
+            <div className="header__option">
+              <p className="header__optionText1">Sign In</p>
+              <span className='header__optionText'>Account & Lists</span>
+            </div>
+          </Link>
+          <Link to="/orders">
+            <div className="header__option">
+              <p className="header__optionText1">Returns</p>
+              <span className='header__optionText'>& Orders</span>
+            </div>
+          </Link>
+          <Link to="/cart" className="header__optionCart">
+            
+              <BiCart size={35} className='cart-icon'/>
+              <span className='cart-count'>{basket.length}</span>
+           
+          </Link>
+        </div>
+      </section>
+    <LowerHeader/>
     </section>
+    
   );
 }
 
 export default Header
+
