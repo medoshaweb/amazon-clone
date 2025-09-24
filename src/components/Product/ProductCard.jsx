@@ -13,8 +13,6 @@ const ProductCard = ({ product , flex, renderDetail,renderAdd }) => {
     if (!product) return null;
     const { title, image, price, rating, description } = product || {};
 
-    
-
     const addToCart = () => {
         dispatch({ type: Type.ADD_TO_BASKET, item: product });
     };
@@ -24,7 +22,7 @@ const ProductCard = ({ product , flex, renderDetail,renderAdd }) => {
       className="product-card"
       style={{
         display: "flex",
-        flex: flex ? "flex" : "block",
+        flexDirection: flex ? "row" : "column",
         gap: "20px",
         alignItems: "flex-start",
       }}

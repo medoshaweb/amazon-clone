@@ -13,6 +13,9 @@ const Header = () => {
 
   const {state } = useContext(StateContext);
   const{ basket } = state;
+  const totalItem = basket?.reduce((amount,item)=>{
+    return item.amount + amount
+  },0)
   
 
   return (
@@ -78,7 +81,7 @@ const Header = () => {
           <Link to="/cart" className="header__optionCart">
             
               <BiCart size={35} className='cart-icon'/>
-              <span className='cart-count'>{basket.length}</span>
+              <span className='cart-count'>{totalItem}</span>
            
           </Link>
         </div>
