@@ -11,7 +11,7 @@ import LowerHeader from './LowerHeader';
 
 const Header = () => {
 
-  const {state, dispatch} = useContext(StateContext);
+  const {state } = useContext(StateContext);
   const{ basket } = state;
   
 
