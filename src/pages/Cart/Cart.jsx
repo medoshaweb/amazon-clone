@@ -39,14 +39,15 @@ const Cart = () => {
           ) : (
             basket?.map((item, i) => {
               return (
-                <section className="cart-product">
+                <section className="cart-product" key={item.id || i}>
+                  <div>
                   <ProductCard
-                    key={i}
                     product={item}
-                    renderDesc={true}
+                    renderDetail={true}
                     renderAdd={false}
                     flex={true}
                   />
+                 </div>
                   <div className="button-container">
                     <button className="btn" onClick={() => increment(item)}>
                       <IoIosArrowUp size={20} />
@@ -58,23 +59,26 @@ const Cart = () => {
                   </div>
                 </section>
               );
-})
+            })
           )}
         </div>
-        {basket?.length !== 0 && (
-          <div className="subtotal">
-            <div>
-              <span>Subtotal ({basket?.length} items):</span> <CurrencyFormat value={total} />
+        <div>
+          {basket?.length !== 0 && (
+            <div className="subtotal">
+              <div>
+                <span>Subtotal ({basket?.length} items):</span>{" "}
+                <CurrencyFormat value={total} />
+              </div>
+              <span>
+                <input type="checkbox" />
+                <small>This order contains a gift</small>
+              </span>
+              <Link to="/payments" className="payment-link">
+                Continue to checkout
+              </Link>
             </div>
-            <span>
-              <input type="checkbox" />
-              <small>This order contains a gift</small>
-            </span>
-            <Link to="/payments" className="payment-link">
-              Continue to checkout
-            </Link>
-          </div>
-        )}
+          )}
+        </div>
       </section>
     </LayOut>
   );

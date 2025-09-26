@@ -27,9 +27,11 @@ const ProductCard = ({ product , flex, renderDetail,renderAdd }) => {
         alignItems: "flex-start",
       }}
     >
-      <Link to={`/product/${product.id}`}>
-        <img className="product-image" src={image} alt={title} />
-      </Link>
+      <div>
+        <Link to={`/product/${product.id}`}>
+          <img className="product-image" src={image} alt={title} />
+        </Link>
+      </div>
       <div className="product-info">
         <h3 className="product-title">{title}</h3>
         {renderDetail && <p className="product-description">{description}</p>}
@@ -41,18 +43,18 @@ const ProductCard = ({ product , flex, renderDetail,renderAdd }) => {
           {/* <Rating name="read-only" value={product.rating} readOnly /> */}
           {/* <p>{numeral(product.price).format('$0,0.00')}</p> */}
         </div>
-        <div>
+        <div className="product-price">
           {/* {price} */}
-          <CurrencyFormat value={price} className="product-price" />
-          </div>
-
-          {renderAdd && (<button className="product-button" onClick={addToCart}>
-                Add to Cart
-                </button>
-          )}
+          <CurrencyFormat value={price} />
         </div>
+
+        {renderAdd && (
+          <button className="product-button" onClick={addToCart}>
+            Add to Cart
+          </button>
+        )}
       </div>
-    
+    </div>
   );
 }
 
