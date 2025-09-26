@@ -6,7 +6,6 @@
 }
 .cart-product{
     display: flex;
-    
     gap: 500px;
 }
 .button-container{
