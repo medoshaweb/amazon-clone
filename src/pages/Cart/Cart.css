@@ -6,7 +6,7 @@
 }
 .cart-product{
     display: flex;
-    gap: 500px;
+    gap: 50px;
 }
 .button-container{
     display: flex;

@@ -1,26 +1,22 @@
-import React, { useContext } from 'react'
-import { StateContext } from '../DataProvider/DataProvider';
-import './Header.css'
+import React, { useContext } from "react";
+import { StateContext } from "../DataProvider/DataProvider";
+import "./Header.css";
 import { SlLocationPin } from "react-icons/sl";
 import { FaSearch } from "react-icons/fa";
-import { Link } from 'react-router-dom';
-import { BiCart } from 'react-icons/bi';
-
-import LowerHeader from './LowerHeader';
-
+import { Link } from "react-router-dom";
+import { BiCart } from "react-icons/bi";
+import { auth } from "../../Utility/firebase";
+import LowerHeader from "./LowerHeader";
 
 const Header = () => {
-
-  const {state } = useContext(StateContext);
-  const{ basket } = state;
-  const totalItem = basket?.reduce((amount,item)=>{
-    return item.amount + amount
-  },0)
-  
+  const { state } = useContext(StateContext);
+  const { user, basket } = state;
+  const totalItem = basket?.reduce((amount, item) => {
+    return item.amount + amount;
+  }, 0);
 
   return (
-    
-    <section className='fixed'>
+    <section className="fixed">
       <section className="header">
         <div className="header__logoContainer">
           <Link to="/">
@@ -35,10 +31,12 @@ const Header = () => {
             <img src="../../assets/images/location white.png" alt="" />
           </span>
           <div className="header__optionLocation">
-            <span><SlLocationPin /></span>
+            <span>
+              <SlLocationPin />
+            </span>
             <div>
-            <p className='header__optionText1'>Delivered to</p>
-            <span className='header__optionText'>Ethiopia</span>
+              <p className="header__optionText1">Delivered to</p>
+              <span className="header__optionText">Ethiopia</span>
             </div>
           </div>
         </div>
@@ -66,31 +64,46 @@ const Header = () => {
               <option value="">EN</option>
             </select>
           </div>
-          <Link to="/login">
+          <Link to={!user && "/auth"}>
             <div className="header__option">
-              <p className="header__optionText1">Sign In</p>
-              <span className='header__optionText'>Account & Lists</span>
+              {user ? (
+                <div className="header__option" onClick={() => auth.signOut()}>
+                  <p className="header__optionText1">
+                    Hello {user?.email?.split("@")[0]}
+                  </p>
+                  <span
+                    className="header__optionText">
+                    sign OUt
+                  </span>
+                </div>
+              ) : (
+                <Link to="/auth">
+                  <div className="header__option">
+                    <p className="header__optionText1">Hello, Sign In</p>
+                    <span className="header__optionText">Account & Lists</span>
+                  </div>
+                </Link>
+              )}
             </div>
+            {/* <div className="header__option">
+              <span className="header__optionText">Account & Lists</span>
+            </div> */}
           </Link>
           <Link to="/orders">
             <div className="header__option">
               <p className="header__optionText1">Returns</p>
-              <span className='header__optionText'>& Orders</span>
+              <span className="header__optionText">& Orders</span>
             </div>
           </Link>
           <Link to="/cart" className="header__optionCart">
-            
-              <BiCart size={35} className='cart-icon'/>
-              <span className='cart-count'>{totalItem}</span>
-           
+            <BiCart size={35} className="cart-icon" />
+            <span className="cart-count">{totalItem}</span>
           </Link>
         </div>
       </section>
-    <LowerHeader/>
+      <LowerHeader />
     </section>
-    
   );
-}
+};
 
-export default Header
-
+export default Header;

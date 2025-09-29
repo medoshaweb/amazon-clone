@@ -73,7 +73,7 @@ const Cart = () => {
                 <input type="checkbox" />
                 <small>This order contains a gift</small>
               </span>
-              <Link to="/payments" className="payment-link">
+              <Link to="/payment" className="payment-link">
                 Continue to checkout
               </Link>
             </div>
