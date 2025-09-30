@@ -1,8 +1,8 @@
 import React, { useEffect, useState} from 'react'
 import axios from 'axios';
-import ProductCard from './ProductCard.jsx';
+import ProductCard from './ProductCard';
 import './Product.css'
-import Loader from '../../loaders/loader.jsx';
+import Loader from '../../loaders/loader';
 
 
 

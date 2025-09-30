@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import {StateContext} from "../DataProvider/DataProvider.jsx"
+import {StateContext} from "../DataProvider/DataProvider"
 import Rating from '@mui/material/Rating';
-import CurrencyFormat from '../CurrencyFormat/CurrencyFormat.jsx';
+import CurrencyFormat from '../CurrencyFormat/CurrencyFormat';
 import './Product.css'
 import { Link } from 'react-router-dom';
 
-import { Type } from '../../Utility/action.type.js';
+import { Type } from '../../Utility/action.type';
 
 
 const ProductCard = ({ product , flex, renderDetail,renderAdd }) => {

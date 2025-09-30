@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { productUrl } from '../../../src/Api/endPoints' 
 import ProductCard from '../../components/Product/ProductCard'  
-import Loader from '../../loaders/loader.jsx'
+import Loader from '../../loaders/loader'
 
 
 
