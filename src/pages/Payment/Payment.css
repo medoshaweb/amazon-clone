@@ -56,8 +56,64 @@ padding: 30px;
     justify-content: center;
     color: rgb(52, 52, 52)
 }
-@media screen and (max-width:768px){
-    .flex{
+@media screen and (max-width: 992px) {
+    .flex {
+        padding: 20px;
+    }
+    .flex h3 {
+        min-width: auto;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .payment {
+        padding: 15px;
+    }
+    .payment_header {
+        padding: 15px;
+        font-size: 20px;
+    }
+    .flex {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+    .flex h3 {
+        min-width: auto;
+        font-size: 18px;
+    }
+    .payment_card_container {
+        max-width: 100%;
+    }
+    .payment_price {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .payment {
+        padding: 10px;
+    }
+    .payment_header {
+        padding: 10px;
+        font-size: 18px;
+    }
+    .flex {
+        padding: 10px;
+        gap: 10px;
+    }
+    .flex h3 {
+        font-size: 16px;
+    }
+    .flex img {
+        width: 60px !important;
+    }
+    .payment_price {
+        padding: 10px;
+    }
+    .payment_price > div {
+        font-size: 14px;
         flex-direction: column;
     }
 }

@@ -19,33 +19,24 @@ const ProductCard = ({ product , flex, renderDetail,renderAdd }) => {
 
   return (
     <div
-      className="product-card"
-      style={{
-        display: "flex",
-        flexDirection: flex ? "row" : "column",
-        gap: "20px",
-        alignItems: "flex-start",
-      }}
+      className={`product-card ${flex ? 'product-card--flex' : ''}`}
     >
-      <div>
+      <div className="product-image-wrapper">
         <Link to={`/product/${product.id}`}>
           <img className="product-image" src={image} alt={title} />
         </Link>
       </div>
       <div className="product-info">
-        <h3 className="product-title">{title}</h3>
-        {renderDetail && <p className="product-description">{description}</p>}
-        <div className="product-rating-container">
-          {/* {rating} */}
-          <Rating value={rating.rate} precision={0.1} readOnly />
-          {/* count*/}
-          <small>{rating.count}</small>
-          {/* <Rating name="read-only" value={product.rating} readOnly /> */}
-          {/* <p>{numeral(product.price).format('$0,0.00')}</p> */}
-        </div>
-        <div className="product-price">
-          {/* {price} */}
-          <CurrencyFormat value={price} />
+        <div className="product-info__top">
+          <h3 className="product-title">{title}</h3>
+          {renderDetail && <p className="product-description">{description}</p>}
+          <div className="product-rating-container">
+            <Rating value={rating?.rate || 0} precision={0.1} readOnly size="small" />
+            <small>({rating?.count || 0})</small>
+          </div>
+          <div className="product-price">
+            <CurrencyFormat value={price} />
+          </div>
         </div>
 
         {renderAdd && (

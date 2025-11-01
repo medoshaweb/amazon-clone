@@ -6,19 +6,18 @@ import "./Orders.css";
 import ProductCard from "../../components/Product/ProductCard";
 import {
   collection,
-  doc,
   query,
   orderBy,
-  onSnapshot,
+  getDocs,
 } from "firebase/firestore";
 
 const Orders = () => {
   const { state } = useContext(StateContext);
-  const { user, basket } = state;
+  const { user } = state;
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    //    if (!user) return;
+    if (!user) return;
 
     const fetchOrders = async () => {
       try {
@@ -54,15 +53,15 @@ const Orders = () => {
               {orders.map((order) => (
                 <div key={order.id} className="order">
                   <h3>Order ID: {order.id}</h3>
-                  <p>Total: ${(order.amount / 100).toFixed(2)}</p>
-                  <p>Date: {new Date(order.created * 1000).toLocaleString()}</p>
+                  <p>Total: ${(order.data.amount / 100).toFixed(2)}</p>
+                  <p>Date: {order.data.created?.toDate()?.toLocaleString() || 'Date not available'}</p>
 
                   <div className="order-products">
-                    {order.basket.map((product, idx) => (
+                    {order.data.basket?.map((product, idx) => (
                       <ProductCard
                         key={idx}
                         product={product}
-                        renderAdd={false} // optional
+                        renderAdd={false}
                       />
                     ))}
                   </div>

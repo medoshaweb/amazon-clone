@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useContext, useState } from "react";
 import ProductCard from "../../components/Product/ProductCard";
 import "./Payment.css";
@@ -14,9 +10,10 @@ import { ClipLoader } from "react-spinners";
 import { db } from "../../Utility/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { Type } from "../../Utility/action.type";
 
 const Payment = () => {
-  const { state } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext);
   const { user, basket } = state;
 
   const totalItem = basket.reduce((amount, item) => item.amount + amount, 0);
@@ -78,9 +75,11 @@ const Payment = () => {
         created: serverTimestamp(),
         paymentId: paymentIntent.id,
       });
-      navigate("/order", {state:{msg:"You have placed new Order"}})
 
-      alert("Payment successful!");
+      // 4. Clear the basket after successful payment
+      dispatch({ type: Type.EMPTY_BASKET });
+      
+      navigate("/orders", {state:{msg:"You have placed new Order"}});
     } catch (error) {
       console.error("Payment error:", error);
       setCardError(error.message || "Payment failed. Please try again.");

@@ -64,6 +64,46 @@
 @media screen and (max-width: 968px) {
     .container {
         flex-direction: column;
-        order: 1;
+        padding: 10px;
+    }
+    .cart-product {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+    .subtotal {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container {
+        padding: 5px;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .cart-container {
+        padding: 10px;
+    }
+    .cart-container h2,
+    .cart-container h3 {
+        padding: 5px;
+        font-size: 18px;
+    }
+    .cart-product {
+        gap: 10px;
+        padding: 10px 0;
+    }
+    .subtotal {
+        padding: 15px;
+        height: auto;
+        gap: 15px;
+    }
+    .button-container {
+        gap: 3px;
+    }
+    .btn {
+        padding: 3px 12px;
     }
 }

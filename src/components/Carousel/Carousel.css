@@ -1,8 +1,35 @@
 .carousel .slide img {
-  width: 100%;            /* Make images responsive */
-  height: 450px;          /* Keep all images same height */
-  object-fit: cover;      /* Prevent stretching, crop instead */
-  border-radius: 12px;    /* Optional rounded corners */
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 768px) {
+  .carousel .slide img,
+  .carousel__image {
+    height: 300px;
+  }
+  .carousel__container {
+    padding: 0 10px;
+    margin: 10px auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .carousel .slide img,
+  .carousel__image {
+    height: 200px;
+    border-radius: 8px;
+  }
+  .carousel__container {
+    padding: 0 5px;
+    margin: 5px auto;
+  }
+  .carousel .legend {
+    font-size: 12px;
+    padding: 5px;
+  }
 }
 
 .carousel .control-arrow {

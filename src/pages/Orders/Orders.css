@@ -10,3 +10,43 @@
     border-bottom: 2px solid var(--primary-shade);
     padding: 20px;
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    .order_container {
+        padding: 15px;
+    }
+    .order_container h2 {
+        padding: 15px;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container {
+        padding: 10px;
+    }
+    .order_container {
+        padding: 10px;
+    }
+    .order_container h2 {
+        padding: 10px;
+        font-size: 18px;
+    }
+    .order {
+        padding: 10px;
+    }
+    .order h3 {
+        font-size: 16px;
+    }
+    .order p {
+        font-size: 14px;
+    }
+    .order-products {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+}

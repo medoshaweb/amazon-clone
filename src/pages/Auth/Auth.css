@@ -10,7 +10,8 @@
     object-fit: contain;
 }
 .login-container{
-    width: 350px;
+    width: 100%;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
@@ -71,4 +72,33 @@
 .er{
     color: red;
     padding-top:5px;
+}
+
+@media screen and (max-width: 576px) {
+    .login {
+        padding: 10px;
+    }
+    .login img {
+        width: 80px;
+        margin: 20px auto;
+    }
+    .login-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
+        margin: 0 10px;
+    }
+    .login-container h1 {
+        font-size: 20px;
+        margin: 15px 0;
+    }
+    .login-container form input {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    .login-btn,
+    .register-btn {
+        height: 35px;
+        font-size: 14px;
+    }
 }

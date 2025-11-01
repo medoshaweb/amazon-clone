@@ -6,8 +6,7 @@ import { Type } from "./Utility/action.type";
 import { auth } from "./Utility/firebase";
 
 function App() {
-  const { state, dispatch } = useContext(StateContext);
-  const { user, basket } = state; // now `user` exists
+  const { dispatch } = useContext(StateContext);
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
