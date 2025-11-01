@@ -1,19 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StateContext } from "../DataProvider/DataProvider";
 import "./Header.css";
 import { SlLocationPin } from "react-icons/sl";
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiCart } from "react-icons/bi";
 import { auth } from "../../Utility/firebase";
 import LowerHeader from "./LowerHeader";
+import { categoryData } from "../Category/categoryFull";
 
 const Header = () => {
   const { state } = useContext(StateContext);
   const { user, basket } = state;
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const navigate = useNavigate();
+  
   const totalItem = basket?.reduce((amount, item) => {
     return item.amount + amount;
   }, 0);
+
+  const handleSearch = () => {
+    if (selectedCategory) {
+      // Navigate to selected category
+      navigate(`/category/${encodeURIComponent(selectedCategory)}`);
+    } else if (searchTerm.trim()) {
+      // Navigate with search term as category
+      navigate(`/category/${encodeURIComponent(searchTerm.trim())}`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <section className="fixed">
@@ -41,17 +62,35 @@ const Header = () => {
           </div>
         </div>
         <div className="header__search">
-          <select className="header__searchSelect" name="" id="">
+          <select 
+            className="header__searchSelect" 
+            name="category" 
+            id="category"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
             <option value="">All</option>
+            {categoryData.map((category) => (
+              <option key={category.id} value={category.name}>
+                {category.title}
+              </option>
+            ))}
           </select>
           <input
             type="text"
-            name=""
-            id=""
+            name="search"
+            id="search"
             placeholder="Search..."
             className="header__searchInput"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
-          <FaSearch className="header__searchIcon" />
+          <FaSearch 
+            className="header__searchIcon" 
+            onClick={handleSearch}
+            style={{ cursor: "pointer" }}
+          />
         </div>
         <div className="header__nav">
           <div className="header__optionLanguage">

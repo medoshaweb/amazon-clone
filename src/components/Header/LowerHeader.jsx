@@ -1,12 +1,19 @@
 import React from 'react'
 import { IoIosMenu } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 import './Header.css'
 
 const LowerHeader = () => {
+  const navigate = useNavigate();
+
+  const handleAllClick = () => {
+    navigate('/');
+  };
+
   return (
     <div className='lower-nav'>
       <ul>
-        <li>
+        <li onClick={handleAllClick} style={{ cursor: "pointer" }}>
           <IoIosMenu />
           <p>All</p>
         </li>
