@@ -6,24 +6,54 @@
 }
 .cart-product{
     display: flex;
-    gap: 50px;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
 }
+
+.cart-product:last-child {
+    border-bottom: none;
+}
+
 .button-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:5px;
+    gap: 8px;
+    min-width: 60px;
+    flex-shrink: 0;
+}
+
+.button-container span {
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
 }
 .btn{
-    padding:5px 16px;
+    padding: 8px 12px;
     font-weight: bold;
     cursor: pointer;
     background-color: #fff;
-    border: none;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 35px;
+    transition: background-color 0.2s;
 }
-.btn:hover svg{
+
+.btn:hover {
     background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn:hover svg{
+    color: #000;
 }
 .cart-container{
     padding: 20px;
@@ -67,9 +97,15 @@
         padding: 10px;
     }
     .cart-product {
-        flex-direction: column;
-        gap: 20px;
+        flex-direction: row;
+        gap: 15px;
         align-items: flex-start;
+    }
+    .cart-product > div:first-child {
+        flex: 1;
+    }
+    .button-container {
+        align-self: center;
     }
     .subtotal {
         min-width: auto;
@@ -94,16 +130,26 @@
     .cart-product {
         gap: 10px;
         padding: 10px 0;
+        flex-direction: row;
+    }
+    .cart-product > div:first-child {
+        flex: 1;
+    }
+    .button-container {
+        gap: 6px;
+        min-width: 50px;
+        align-self: center;
+    }
+    .button-container span {
+        font-size: 14px;
+    }
+    .btn {
+        padding: 6px 10px;
+        min-width: 30px;
     }
     .subtotal {
         padding: 15px;
         height: auto;
         gap: 15px;
-    }
-    .button-container {
-        gap: 3px;
-    }
-    .btn {
-        padding: 3px 12px;
     }
 }
