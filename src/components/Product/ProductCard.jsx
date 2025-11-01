@@ -23,7 +23,14 @@ const ProductCard = ({ product , flex, renderDetail,renderAdd }) => {
     >
       <div className="product-image-wrapper">
         <Link to={`/product/${product.id}`}>
-          <img className="product-image" src={image} alt={title} />
+          <img 
+            className="product-image" 
+            src={image || "https://via.placeholder.com/200x200?text=No+Image"} 
+            alt={title || "Product"} 
+            onError={(e) => {
+              e.target.src = "https://via.placeholder.com/200x200?text=No+Image";
+            }}
+          />
         </Link>
       </div>
       <div className="product-info">

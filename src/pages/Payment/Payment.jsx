@@ -16,11 +16,11 @@ const Payment = () => {
   const { state, dispatch } = useContext(StateContext);
   const { user, basket } = state;
 
-  const totalItem = basket.reduce((amount, item) => item.amount + amount, 0);
-  const total = basket.reduce(
-    (amount, item) => Number(item.price) * item.amount + amount,
+  const totalItem = basket?.reduce((amount, item) => (item?.amount || 0) + amount, 0) || 0;
+  const total = basket?.reduce(
+    (amount, item) => Number(item?.price || 0) * (item?.amount || 0) + amount,
     0
-  );
+  ) || 0;
 
   const [cardError, setCardError] = useState(null);
   const [processing, setProcessing] = useState(false);
@@ -47,19 +47,61 @@ const Payment = () => {
     setCardError(null);
 
     try {
+      // Validate basket has items
+      if (!basket || basket.length === 0) {
+        setCardError("Your cart is empty. Please add items to checkout.");
+        setProcessing(false);
+        return;
+      }
+
       // 1. Create Payment Intent
       const response = await axiosInstance.post(
         `/payment/create?total=${total * 100}`
       );
-      const clientSecret = response.data?.clientSecret;
+
+      if (!response.data || !response.data.clientSecret) {
+        throw new Error("Failed to create payment. Please try again.");
+      }
+
+      const clientSecret = response.data.clientSecret;
 
       // 2. Confirm Card Payment
-      const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: { card: elements.getElement(CardElement) },
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
       });
 
+      // Check for errors in the result
+      if (result.error) {
+        throw new Error(result.error.message || "Payment failed");
+      }
+
+      // Handle different response structures from Stripe
+      let paymentIntent = null;
+      
+      if (result.paymentIntent) {
+        paymentIntent = result.paymentIntent;
+      } else if (result.payment_intent) {
+        paymentIntent = result.payment_intent;
+      } else if (result.paymentIntent?.id) {
+        paymentIntent = result.paymentIntent;
+      }
+
+      // Check if paymentIntent exists and has the expected structure
+      if (!paymentIntent) {
+        throw new Error("Payment confirmation failed. Please try again.");
+      }
+
+      // Check payment status
+      if (!paymentIntent.status) {
+        throw new Error("Payment status unknown. Please contact support.");
+      }
+
       if (paymentIntent.status !== "succeeded") {
-        throw new Error("Payment not successful");
+        throw new Error(
+          `Payment status: ${paymentIntent.status}. Payment was not successful.`
+        );
       }
 
       // 3. Save Order in Firestore
@@ -70,8 +112,11 @@ const Payment = () => {
           title: item.title,
           price: Number(item.price),
           amount: item.amount,
+          image: item.image,
+          description: item.description,
+          rating: item.rating || { rate: 0, count: 0 },
         })),
-        amount: paymentIntent.amount,
+        amount: paymentIntent.amount || total * 100,
         created: serverTimestamp(),
         paymentId: paymentIntent.id,
       });
@@ -82,7 +127,15 @@ const Payment = () => {
       navigate("/orders", {state:{msg:"You have placed new Order"}});
     } catch (error) {
       console.error("Payment error:", error);
-      setCardError(error.message || "Payment failed. Please try again.");
+      let errorMessage = "Payment failed. Please try again.";
+      
+      if (error.message) {
+        errorMessage = error.message;
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+      
+      setCardError(errorMessage);
     } finally {
       setProcessing(false);
     }
